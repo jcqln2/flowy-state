@@ -2,3 +2,11 @@ qa/
 .DS_Store
 .vercel
 _upload/
+node_modules/
+package.json
+package-lock.json
+*_SUMMARY.md
+SCREENSHOT_REPORT.md
+felt-section-previews/
+pr-previews/
+theme-previews/
