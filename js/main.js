@@ -13,10 +13,20 @@
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
   }
-  var PALETTE = [
-    [168, 232, 185], [168, 232, 185], [168, 232, 185], [168, 232, 185],
-    [236, 230, 216], [236, 230, 216], [201, 238, 122], [243, 201, 207]
-  ];
+  function getThemePalette() {
+    var isDark = !document.documentElement.getAttribute("data-theme") || document.documentElement.getAttribute("data-theme") === "dark";
+    if (isDark) {
+      return [
+        [168, 232, 185], [168, 232, 185], [168, 232, 185], [168, 232, 185],
+        [236, 230, 216], [236, 230, 216], [201, 238, 122], [243, 201, 207]
+      ];
+    } else {
+      return [
+        [45, 153, 88], [45, 153, 88], [45, 153, 88], [45, 153, 88],
+        [26, 29, 27], [26, 29, 27], [90, 138, 46], [200, 85, 115]
+      ];
+    }
+  }
 
   function buildNodes(w, h, count, rand, keepOut) {
     var nodes = [], tries = 0, minD = Math.sqrt((w * h) / count) * 0.62;
@@ -30,10 +40,11 @@
         if (dx * dx + dy * dy < minD * minD) { ok = false; break; }
       }
       if (!ok) continue;
+      var palette = getThemePalette();
       nodes.push({
         bx: x, by: y, x: x, y: y,
         r: 1 + rand() * 1.6,
-        c: PALETTE[Math.floor(rand() * PALETTE.length)],
+        c: palette[Math.floor(rand() * palette.length)],
         ph: rand() * Math.PI * 2, sp: 0.00012 + rand() * 0.00018,
         amp: 6 + rand() * 14, tw: rand() * Math.PI * 2
       });
@@ -96,7 +107,8 @@
         var breathe = reduce ? 0.6 : 0.5 + 0.5 * Math.sin(t * 0.0004 + E.ph);
         var al = 0.07 + 0.12 * breathe;
         if (a.me || b.me) al += 0.12;
-        ctx.strokeStyle = "rgba(168,232,185," + al.toFixed(3) + ")";
+        var isDark = !document.documentElement.getAttribute("data-theme") || document.documentElement.getAttribute("data-theme") === "dark";
+        ctx.strokeStyle = isDark ? "rgba(168,232,185," + al.toFixed(3) + ")" : "rgba(45,153,88," + al.toFixed(3) + ")";
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       }
       /* travelling light along an edge, rarely */
@@ -109,7 +121,12 @@
         var x = a.x + (b.x - a.x) * k, y = a.y + (b.y - a.y) * k;
         var g = ctx.createRadialGradient(x, y, 0, x, y, 10);
         var al = Math.sin(k * Math.PI) * 0.55;
-        g.addColorStop(0, "rgba(220,250,225," + al + ")"); g.addColorStop(1, "rgba(168,232,185,0)");
+        var isDark = !document.documentElement.getAttribute("data-theme") || document.documentElement.getAttribute("data-theme") === "dark";
+        if (isDark) {
+          g.addColorStop(0, "rgba(220,250,225," + al + ")"); g.addColorStop(1, "rgba(168,232,185,0)");
+        } else {
+          g.addColorStop(0, "rgba(180,220,195," + al + ")"); g.addColorStop(1, "rgba(45,153,88,0)");
+        }
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 10, 0, 6.283); ctx.fill();
         return true;
       });
@@ -135,7 +152,8 @@
         ctx.beginPath(); ctx.arc(me.x, me.y, 6 + ring * 22, 0, 6.283); ctx.stroke();
         if (showLabel) {
         ctx.font = "500 11px 'Plex Mono', ui-monospace, monospace";
-        ctx.fillStyle = "rgba(236,230,216,.78)";
+        var isDark = !document.documentElement.getAttribute("data-theme") || document.documentElement.getAttribute("data-theme") === "dark";
+        ctx.fillStyle = isDark ? "rgba(236,230,216,.78)" : "rgba(26,29,27,.78)";
         var label = "#024  flowy_state";
         var tx = me.x + 14, tw2 = ctx.measureText(label).width;
         if (tx + tw2 > W - 12) tx = me.x - 14 - tw2;
@@ -274,5 +292,24 @@
       if (reduce) tDraw(0);
     });
     tLayout();
+  }
+
+  /* ---------- theme toggle ---------- */
+  var themeBtn = document.getElementById("themeToggle");
+  if (themeBtn && cv) {
+    themeBtn.addEventListener("click", function () {
+      var current = document.documentElement.getAttribute("data-theme") || "dark";
+      var next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+      layout();
+    });
+  } else if (themeBtn) {
+    themeBtn.addEventListener("click", function () {
+      var current = document.documentElement.getAttribute("data-theme") || "dark";
+      var next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
   }
 })();
