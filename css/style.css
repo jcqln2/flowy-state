@@ -70,7 +70,7 @@ em{font-style:italic;color:var(--ink)}
 .top__nav a:hover{color:var(--ink)}
 .top__hello{border:1px solid var(--line-2);padding:8px 14px;border-radius:999px;transition:border-color .2s,background .2s;white-space:nowrap}
 .top__hello:hover{border-color:var(--glow);background:rgba(168,232,185,.06)}
-@media (max-width:900px){.top__nav{display:none}}
+@media (max-width:900px){.top__nav{display:flex;font-size:11px;gap:14px}}
 @media (max-width:420px){.top__sep,.top__id .muted{display:none}}
 
 /* hero */
@@ -101,7 +101,7 @@ em{font-style:italic;color:var(--ink)}
 .beds{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(36px,6vw,88px);align-items:start;margin-top:48px}
 .beds__hero{margin:0}
 .beds__hero img,.details img,.video video{border-radius:var(--r);background:#1a1d1b}
-.beds__hero img{width:100%;aspect-ratio:9/16;max-height:calc(100vh - 140px);object-fit:cover;object-position:50% 30%;box-shadow:0 30px 80px -30px rgba(0,0,0,.8),0 0 0 1px var(--line)}
+.beds__hero img{width:100%;aspect-ratio:9/16;max-height:calc(100vh - 140px);object-fit:cover;object-position:50% 50%;box-shadow:0 30px 80px -30px rgba(0,0,0,.8),0 0 0 1px var(--line)}
 .beds__text{padding-top:8px}
 .beds__text > p{max-width:34em}
 .video{margin-top:40px;position:relative;max-width:240px}
@@ -127,6 +127,9 @@ em{font-style:italic;color:var(--ink)}
 .blythe__body{position:relative;z-index:1}
 .blythe__body .label{color:var(--pink)}
 .blythe__body p:not(.label){max-width:30em}
+.blythe__photos{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,20px);margin:clamp(20px,3vw,32px) 0}
+.blythe__photos figure{margin:0}
+.blythe__photos img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;box-shadow:0 0 0 1px var(--line)}
 .blythe__handle{position:relative;z-index:1;text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;aspect-ratio:1;max-width:340px;width:100%;justify-self:center;border-radius:50%;
   background:radial-gradient(circle at 50% 45%,rgba(243,201,207,.18),rgba(243,201,207,.04) 62%,transparent 70%);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .blythe__handle:hover{transform:scale(1.03)}
@@ -173,6 +176,12 @@ em{font-style:italic;color:var(--ink)}
 .glow__img{margin:0;border-radius:20px;overflow:hidden;box-shadow:0 0 0 1px var(--line),0 40px 100px -50px rgba(200,190,240,.35)}
 .glow__img img{width:100%;aspect-ratio:1400/790;object-fit:cover}
 .glow__text{max-width:640px;margin-top:clamp(36px,5vw,56px)}
+/* recommendation */
+.rec{margin:clamp(28px,4vw,40px) 0;padding:clamp(24px,3.5vw,36px);background:var(--panel);border-radius:16px;border-left:3px solid var(--glow);box-shadow:0 0 0 1px var(--line)}
+.rec p{font-size:clamp(18px,1.1rem + .4vw,21px);line-height:1.58;color:var(--ink-2);margin:0}
+.rec__cite{display:flex;flex-direction:column;gap:6px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--ink)}
+.rec__cite .muted{font-size:11.5px}
+
 /* years */
 .years{list-style:none;margin:0;padding:0 0 0 6px;position:relative}
 .years::before{content:"";position:absolute;left:11px;top:14px;bottom:14px;width:1px;background:linear-gradient(var(--glow),rgba(168,232,185,.2))}
@@ -241,7 +250,7 @@ em{font-style:italic;color:var(--ink)}
 @media (max-width:900px){
   .beds,.split,.split--rev,.idea--main,.blythe{grid-template-columns:1fr}
   .beds__hero{position:static}
-  .beds__hero img{max-height:none;aspect-ratio:4/5;object-position:50% 38%}
+  .beds__hero img{max-height:none;aspect-ratio:4/5;object-position:50% 50%}
   .split--rev .years{order:2}
   .video{max-width:none;display:grid;grid-template-columns:minmax(0,200px) 1fr;gap:18px;align-items:end}
   .video .cap{margin:0}
@@ -263,6 +272,7 @@ em{font-style:italic;color:var(--ink)}
   .blythe{padding:28px 24px;gap:20px}
   .blythe::before{inset:8px}
   .blythe__handle{max-width:230px}
+  .blythe__photos{gap:10px;margin:16px 0}
   .video__btn{left:10px;top:10px;font-size:11.5px;padding:8px 12px 8px 10px}
   .try__form label{margin-top:4px}
   .links a{grid-template-columns:1fr auto;gap:2px 12px;padding:16px 2px}
