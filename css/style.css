@@ -216,6 +216,7 @@ em{font-style:italic;color:var(--ink)}
 .years__dot{grid-row:1;align-self:center;width:11px;height:11px;border-radius:50%;background:var(--glow);box-shadow:0 0 14px 3px rgba(168,232,185,.45);justify-self:center}
 .years__y{font-family:var(--serif);font-size:clamp(40px,4.4vw,56px);line-height:1;color:var(--ink)}
 .years__t{grid-column:2;font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.years__dates{display:block;font-size:11px;letter-spacing:.08em;text-transform:none;color:var(--ink-2);margin-top:4px}
 .years__next .years__dot{background:transparent;border:1.5px dashed var(--pink);box-shadow:none;width:13px;height:13px}
 .years__next .years__y{color:transparent;-webkit-text-stroke:1px rgba(243,201,207,.75)}
 .years__next .years__t{text-transform:none;letter-spacing:.06em}
